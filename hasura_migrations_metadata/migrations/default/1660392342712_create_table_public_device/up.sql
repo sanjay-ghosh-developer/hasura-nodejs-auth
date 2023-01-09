@@ -1,0 +1,1 @@
+CREATE TABLE "public"."device" ("macid" text NOT NULL, "info" text, "type" text, "userid" Integer NOT NULL, PRIMARY KEY ("macid") , FOREIGN KEY ("userid") REFERENCES "public"."users"("id") ON UPDATE restrict ON DELETE restrict);

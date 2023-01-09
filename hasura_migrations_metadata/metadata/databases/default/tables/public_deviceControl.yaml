@@ -1,0 +1,7 @@
+table:
+  name: deviceControl
+  schema: public
+object_relationships:
+  - name: device
+    using:
+      foreign_key_constraint_on: macid

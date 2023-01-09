@@ -1,0 +1,52 @@
+version: "3.2"
+services:
+  backend_wp:
+      container_name: backend_wp    
+      restart: on-failure
+      build: ./backend_wp
+      environment:
+        DOCKER_DATABASE_HOST: database_wp
+      depends_on:
+        - database_wp
+        - graphql_wp
+      ports:
+        - 8080:8080 
+
+  database_wp:
+    container_name: database_wp
+    image: timescale/timescaledb:latest-pg14
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: admin2022
+      POSTGRES_DB: water_db
+    ports:
+      - 5432:5432 
+
+  graphql_wp:
+    container_name: graphql_wp
+    image: hasura/graphql-engine:latest.cli-migrations-v3
+    ports:
+      - 9090:8080
+    depends_on:
+      - database_wp
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:admin2022@database_wp:5432/water_db?sslmode=disable
+      ## enable the console served by server
+      HASURA_GRAPHQL_ENABLE_CONSOLE: true # set to "false" to disable console
+      ## enable debugging mode. It is recommended to disable this in production
+      HASURA_GRAPHQL_DEV_MODE: true
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup,http-log,webhook-log,websocket-log,query-log
+      ## uncomment next line to set an admin secret
+      HASURA_GRAPHQL_ADMIN_SECRET: TI5BaLwzSQV3BPIx
+      HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key": "T7Q5s5pkpuF4eATtYTU42cLT5olThtLP"}' 
+      HASURA_GRAPHQL_MIGRATIONS_DISABLE_TRANSACTION: "true"
+    volumes:
+      - ./hasura_migrations_metadata/migrations:/hasura-migrations
+      - ./hasura_migrations_metadata/metadata:/hasura-metadata
+  
+volumes:
+  db-data:
+

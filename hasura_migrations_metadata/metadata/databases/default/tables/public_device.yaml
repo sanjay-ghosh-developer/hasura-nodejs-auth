@@ -1,0 +1,22 @@
+table:
+  name: device
+  schema: public
+object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: userid
+array_relationships:
+  - name: deviceControls
+    using:
+      foreign_key_constraint_on:
+        column: macid
+        table:
+          name: deviceControl
+          schema: public
+  - name: deviceTelemetries
+    using:
+      foreign_key_constraint_on:
+        column: macid
+        table:
+          name: deviceTelemetry
+          schema: public

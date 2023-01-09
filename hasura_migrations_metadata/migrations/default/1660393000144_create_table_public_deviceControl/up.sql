@@ -1,0 +1,1 @@
+CREATE TABLE "public"."deviceControl" ("macid" text NOT NULL, "desc" text, "id" serial NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("id") , FOREIGN KEY ("macid") REFERENCES "public"."device"("macid") ON UPDATE restrict ON DELETE restrict);

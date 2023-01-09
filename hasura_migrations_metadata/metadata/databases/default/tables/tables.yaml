@@ -1,0 +1,6 @@
+- "!include public_device.yaml"
+- "!include public_deviceControl.yaml"
+- "!include public_deviceTelemetry.yaml"
+- "!include public_roles.yaml"
+- "!include public_user_roles.yaml"
+- "!include public_users.yaml"

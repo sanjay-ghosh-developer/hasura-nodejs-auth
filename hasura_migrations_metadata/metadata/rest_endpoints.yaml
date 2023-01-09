@@ -1,0 +1,18 @@
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: deviceControlRead
+  methods:
+    - GET
+  name: deviceControlRead
+  url: device-control/:macid
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: deviceTelemetryInsert
+  methods:
+    - POST
+  name: deviceTelemetryInsert
+  url: device-telemetry

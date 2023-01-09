@@ -1,0 +1,1 @@
+CREATE TABLE "public"."deviceTelemetry" ("id" serial NOT NULL, "macid" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "desc" text, PRIMARY KEY ("id") , FOREIGN KEY ("macid") REFERENCES "public"."device"("macid") ON UPDATE restrict ON DELETE restrict);

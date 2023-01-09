@@ -1,0 +1,20 @@
+- name: allowed-queries
+  definition:
+    queries:
+      - name: deviceControlRead
+        query: |
+          query read_control ($macid: String) {
+          	deviceControl(order_by: {created_at:desc}, limit: 1, where: {macid:{_eq:$macid}}) {
+          		macid
+          		desc
+          		created_at
+          		id
+          	}
+          }
+      - name: deviceTelemetryInsert
+        query: |
+          mutation deviceTelemetryInsert ($data: deviceTelemetry_insert_input = {}) {
+          	insert_deviceTelemetry_one(object: $data) {
+          		id
+          	}
+          }
